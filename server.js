@@ -28,4 +28,5 @@ const db = require('./db/users');
 
 //app.get('/users', urlencodedParser, db.getUsers);
 //app.post('/users', urlencodedParser, db.createUser)
-app.post('/users', db.createUser);
+app.post('/user_sign_up', db.createUser);
+app.post('/user_sign_in', db.authUser);

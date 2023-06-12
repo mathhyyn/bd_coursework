@@ -1,12 +1,12 @@
 let message = document.getElementById("error_placeholder");
 
-document.getElementById('signup_button').onclick = () => {
+document.getElementById('sign_button').onclick = () => {
     let password = document.getElementById("password_input").value;
     if (document.getElementById("repeat_password").value != password) {
         message.style.color = 'red';
         message.textContent = "Passwords don't match";
     } else {
-        fetch('http://localhost:3000/users', {
+        fetch('http://localhost:3000/user_sign_up', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -32,3 +32,16 @@ create or replace trigger users_insert_trigger
 before insert on users
 for each row
 	execute function users_insert_function()
+	
+create function get_user_login(login_ varchar(255), email_ varchar(255), password_ varchar(255))
+returns table(login varchar(255)) as $$
+begin
+	if login_ <> '' then
+  		return query select user_login from users where user_login = login_ and user_password = password_;
+  	else 
+  		return query select user_login from users where email = email_ and user_password = password_;
+  	end if;
+end;
+$$ language plpgsql;
+
+select * from get_user_login('', 'anna@gmail.com', '1anna');
