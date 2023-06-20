@@ -22,11 +22,14 @@ app.listen(port, () => {
     console.log("listen server " + port);
 });
 
-const db = require('./db/users');
+const Users = require('./db/users');
+let db_users = new Users();
 
 // app.use(express.static('login'));
 
 //app.get('/users', urlencodedParser, db.getUsers);
 //app.post('/users', urlencodedParser, db.createUser)
-app.post('/user_sign_up', db.createUser);
-app.post('/user_sign_in', db.authUser);
+app.post('/user_sign_up', db_users.createUser);
+app.post('/user_sign_in', db_users.authUser);
+app.post('/parameter_add', db_users.createParameter);
+app.post('/body_data_add', db_users.addBodyData);
