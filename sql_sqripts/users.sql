@@ -44,4 +44,6 @@ begin
 end;
 $$ language plpgsql;
 
+DROP FUNCTION public.get_user_login(varchar, varchar, varchar);
+
 select * from get_user_login('', 'anna@gmail.com', '1anna');

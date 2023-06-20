@@ -1,3 +1,7 @@
+import * as client from "../client.js";
+
+console.log(client.getID());
+
 let message = document.getElementById("error_placeholder");
 
 document.getElementById('signin_button').onclick = () => {
@@ -18,8 +22,10 @@ document.getElementById('signin_button').onclick = () => {
                 message.style.color = 'red';
                 message.textContent = data.detail;
             } else {
+                client.updateID(5);
                 message.style.color = 'green';
                 message.textContent = data.message;
+                window.location.href = '../profile/profile.html';
             }
         })
         .catch(error => {

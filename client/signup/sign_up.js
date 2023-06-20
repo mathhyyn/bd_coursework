@@ -1,6 +1,6 @@
 let message = document.getElementById("error_placeholder");
 
-document.getElementById('sign_button').onclick = () => {
+document.getElementById('signup_button').onclick = () => {
     let password = document.getElementById("password_input").value;
     if (document.getElementById("repeat_password").value != password) {
         message.style.color = 'red';
@@ -28,6 +28,7 @@ document.getElementById('sign_button').onclick = () => {
                 } else {
                     message.style.color = 'green';
                     message.textContent = data.message;
+                    window.location.href = '../profile/profile.html';
                 }
             })
             .catch(error => {
