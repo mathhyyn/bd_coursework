@@ -50,7 +50,7 @@ class Users {
                     response.status(401).json(error);
                 } else {
                     if (results.rows.length)
-                        response.json({ message: "You are authorized with a login '" + results.rows[0].login + "'" });
+                        response.json({ login: results.rows[0].login, message: "You are authorized with a login '" + results.rows[0].login + "'" });
                     else
                         response.status(401).json({ name: 'error', detail: 'Invalid login or password entered' });
                 }

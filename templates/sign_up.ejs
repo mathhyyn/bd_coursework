@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Регистрация</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <h2>sign up</h2>
+    <!--<form action="/users" method="post">-->
+    <label>login</label>
+    <input id="login_input" type="text" /><br>
+    <label>password*</label>
+    <input id="password_input" type="password" value="anna"/><br>
+    <label>repeat password*</label>
+    <input id="repeat_password" type="password" value="anna"/><br>
+    <label>name*</label>
+    <input id="name_input" type="text" value="anna"/><br>
+    <label>birthday*</label>
+    <input id="date_input" type="date" value="2002-07-20" /><br>
+    <label>email*</label>
+    <input id="email_input" type="email" value="anna@gmail.com" /><br>
+    <label>gender*</label>
+    <select id="gender_input">
+        <option value="male" selected>male</option>
+        <option value="female">female</option>
+    </select><br>
+    <div id="error_placeholder"></div>
+    <button id="signup_button">sign up</button>
+    <!--<input type="submit" value="Отправить" />-->
+    <script src="sign_up.js"></script>
+    <!--</form>-->
+</body>
+
+</html>
