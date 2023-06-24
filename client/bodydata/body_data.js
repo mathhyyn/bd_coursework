@@ -51,3 +51,29 @@ document.getElementById('add_body_data_button').onclick = () => {
             console.log('err: ', error);
         })
 }
+
+document.getElementById('get_all_body_data').onclick = () => {
+    fetch('http://localhost:3000/body_data_get', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            parameter_id: 8, // ХАРДКОД исправить
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.name == 'error') {
+                message.style.color = 'red';
+                message.textContent = data.detail;
+            } else {
+                message.style.color = 'green';
+                message.textContent = 'ok';
+            }
+        })
+        .catch(error => {
+            console.log('err: ', error);
+        })
+}

@@ -10,7 +10,7 @@ drop table parameter_data;
 create table body_data (
 	id serial primary key,
 	user_id_ref varchar(255) references users(user_login),
-	parameter_name varchar(255) unique,
+	parameter_name varchar(255),
 	updated_at timestamp default now()
 );
 
@@ -31,6 +31,9 @@ after insert on parameter_data
 for each row
 execute function update_statistic();
 
+
+create unique index user_parameter_index on body_data (user_id_ref, parameter_name);
+
 insert into body_data (user_id_ref, parameter_name)
 	values ('user1', 'press')
 	
@@ -40,3 +43,5 @@ insert into body_data (user_id_ref, parameter_name)
 insert into parameter_data (body_data_ref, value)
 	values (1, 2),
 	values (1, 2)
+
+	

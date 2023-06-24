@@ -1,11 +1,4 @@
-const { Pool } = require('pg');
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'postgrespw',
-    port: 49154,
-})
+const pool = require('./pool.js');
 
 class Users {
     a = 5;
@@ -18,13 +11,13 @@ class Users {
         });*/
     };
 
-    createUser = (request, response) => {
+    createUser = async (request, response) => {
         console.log(request.body);
         if (!request.body) return response.sendStatus(400);
 
         const { user_login, user_password, user_name, user_date, user_email, gender } = request.body;
 
-        pool.query('INSERT INTO users (user_login, user_password, user_name, user_date, email, gender) \
+        await pool.query('INSERT INTO users (user_login, user_password, user_name, user_date, email, gender) \
                     VALUES ($1, $2, $3, $4, $5, $6)',
             [user_login, user_password, user_name, user_date, user_email, gender], (error, results) => {
                 if (error) {
@@ -43,13 +36,13 @@ class Users {
             });
     };
 
-    authUser = (request, response) => {
+    authUser = async (request, response) => {
         console.log(request.body);
         if (!request.body) return response.sendStatus(400);
 
         const { user_login, user_email, user_password } = request.body;
 
-        pool.query('select * from get_user_login($1, $2, $3)',
+        await pool.query('select * from get_user_login($1, $2, $3)',
             [user_login, user_email, user_password], (error, results) => {
                 if (error) {
                     console.log(error);
@@ -63,43 +56,6 @@ class Users {
                 }
             });
     };
-
-    createParameter = (request, response) => {
-        console.log(request.body);
-        if (!request.body) return response.sendStatus(400);
-
-        const { user_id, new_parameter } = request.body;
-
-        pool.query("insert into body_data (user_id_ref, parameter_name) values ($1, $2) returning id",
-            [user_id, new_parameter], (error, results) => {
-                if (error) {
-                    console.log(error);
-                    console.log("DETAILS ", error.detail);
-                    response.status(401).json(error);
-                } else {
-                    console.log(results);
-                    response.json({ message: "Add parameter '" + new_parameter + "'" });
-                }
-            });
-    }
-
-    addBodyData = (request, response) => {
-        console.log(request.body);
-        if (!request.body) return response.sendStatus(400);
-
-        const { parameter_id, new_body_data } = request.body;
-
-        pool.query("insert into parameter_data (body_data_ref, value) values ($1, $2)",
-            [parameter_id, new_body_data], (error, results) => {
-                if (error) {
-                    console.log(error);
-                    console.log("DETAILS ", error.detail);
-                    response.status(401).json(error);
-                } else {
-                    response.json({ message: "Add parameter '" + new_body_data + "'" });
-                }
-            });
-    }
 }
 
 

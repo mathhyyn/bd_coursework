@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
@@ -11,6 +12,8 @@ const urlencodedParser = bodyParser.urlencoded({
 });
 
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, 'client')));
 
 /*app.get('/', (request, response) => {
     //response.sendFile(__dirname + '/index.html');
@@ -29,7 +32,17 @@ let db_users = new Users();
 
 //app.get('/users', urlencodedParser, db.getUsers);
 //app.post('/users', urlencodedParser, db.createUser)
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
+
 app.post('/user_sign_up', db_users.createUser);
 app.post('/user_sign_in', db_users.authUser);
-app.post('/parameter_add', db_users.createParameter);
-app.post('/body_data_add', db_users.addBodyData);
+
+const BodyData = require('./db/bodydata');
+let db_bodydata = new BodyData();
+
+app.post('/parameter_add', db_bodydata.createParameter);
+app.post('/body_data_add', db_bodydata.addBodyData);
+app.post('/body_data_get', db_bodydata.getBodyData); 
