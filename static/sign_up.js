@@ -28,7 +28,7 @@ document.getElementById('signup_button').onclick = () => {
                 } else {
                     message.style.color = 'green';
                     message.textContent = data.message;
-                    window.location.href = '../profile/profile.html';
+                    window.location.href = 'uprofile';
                 }
             })
             .catch(error => {

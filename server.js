@@ -45,9 +45,9 @@ function loadPage(str) {
     });
 }
 
-['', 'sign_in', 'sign_up', 'profile', 'body_data'].forEach(loadPage);
+['', 'sign_in', 'sign_up', 'uprofile', 'body_data'].forEach(loadPage);
 
-app.post('/redirect', async (req, res) => { console.log(req.body); res.redirect(req.body.page); });
+// app.post('/redirect', async (req, res) => { console.log(req.body); res.redirect(req.body.page); });
 
 app.post('/user_sign_up', db_users.createUser);
 app.post('/user_sign_in', db_users.authUser);

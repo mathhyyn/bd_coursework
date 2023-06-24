@@ -37,7 +37,7 @@ document.getElementById('signin_button').onclick = () => {
                 sessionStorage.setItem('user_id', data.login);
                 message.style.color = 'green';
                 message.textContent = data.message;
-                window.location.href = '/profile';
+                window.location.href = 'uprofile';
                 //redirect('profile');
                 //window.location.href = '../profile/profile.html';
             }
