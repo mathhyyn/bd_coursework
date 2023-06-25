@@ -4,10 +4,10 @@ class BodyData {
     createParameter = async (request, response) => {
         let user_id = request.session.user;
         console.log('for', user_id);
-        if (!request.query.user_id) return response.redirect('/');
+        if (!user_id) return response.redirect('/');
 
         console.log(request.body);
-        if (!request.body) return response.sendStatus(400);
+        if (!request.body) return response.sendStatus(404);
 
         const { new_parameter } = request.body;
 
@@ -16,9 +16,9 @@ class BodyData {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
-                    response.status(401).json(error);
+                    response.status(404).json(error);
                 } else {
-                    let id = result.rows[0].id;
+                    let id = results.rows[0].id;
                     console.log(id);
                     response.status(200).json({ parameter_id: id, message: "Add parameter '" + new_parameter + "'" });
                 }
@@ -26,17 +26,23 @@ class BodyData {
     }
 
     addBodyData = async (request, response) => {
-        console.log(request.body);
-        if (!request.body) return response.sendStatus(400);
+        console.log(request.session.user);
+        if (!request.session.user) return response.redirect('/');
 
-        const { parameter_id, new_body_data } = request.body;
+        let parameter_id = request.session.parameter;
+        if (!parameter_id) return response.redirect('/body_data');
+
+        console.log(request.body);
+        if (!request.body) return response.sendStatus(404);
+
+        const { new_body_data } = request.body;
 
         await pool.query("insert into parameter_data (body_data_ref, value) values ($1, $2)",
             [parameter_id, new_body_data], (error, results) => {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
-                    response.status(401).json(error);
+                    response.status(404).json(error);
                 } else {
                     response.status(200).json({ message: "Add parameter '" + new_body_data + "'" });
                 }
@@ -45,18 +51,15 @@ class BodyData {
 
     getParametersList = async (request, response) => {
         // console.log(request.query.user_id);
-        request.session.user = 'user1'; //ВРЕМЕННО
+        // request.session.user = 'user1'; //ВРЕМЕННО
         let user_id = request.session.user;
         console.log('for', user_id);
         console.log("loadPage :", '/body_data');
-        if (!request.session.user) return response.redirect('/');;
+        if (!request.session.user) return response.redirect('/');
         /*if (!user_id) {
             response.redirect('/');
             return;
         }*/ 
-
-        
-
         
         // const user_id = request.query.user_id;
 
@@ -65,7 +68,7 @@ class BodyData {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
-                    response.status(401).render('body_data');
+                    response.status(404).render('body_data');
                 } else {
                     response.status(200).render('body_data', {paramenters: results.rows});
                 }
@@ -74,10 +77,12 @@ class BodyData {
 
     getBodyData = async (request, response) => {
         console.log(request.session.user);
+        if (!request.session.user) return response.redirect('/');
         let parameter_id = request.query.parameter_id;
+        request.session.parameter = parameter_id;
         console.log(parameter_id);
         if (!parameter_id) {
-            return response.sendStatus(400);
+            return response.sendStatus(404);
         }
 
         await pool.query("select * from get_body_data_list($1, $2)",
@@ -85,7 +90,7 @@ class BodyData {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
-                    response.status(401).json(error);
+                    response.status(404).json(error.detail);
                 } else {
                     await pool.query("select parameter_name from body_data where id = $1", [parameter_id], (e, r) => {
                         // console.log(results.rows)

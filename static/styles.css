@@ -27,3 +27,13 @@ body {
 a:hover {
   background: rgb(201, 212, 198);
 }
+
+.back:active,
+.back:hover,
+.back {
+  position: fixed;
+  left: 5px;
+  top: 5px;
+  padding: 5px;
+  font-size: medium;
+}

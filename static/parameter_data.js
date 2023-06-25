@@ -7,7 +7,6 @@ document.getElementById('add_body_data_button').onclick = () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            parameter_id: 8, // ХАРДКОД исправить
             new_body_data: document.getElementById("body_data_input").value
         })
     })
