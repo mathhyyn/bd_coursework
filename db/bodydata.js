@@ -1,13 +1,13 @@
 const pool = require('./pool.js');
 
 class BodyData {
-    createParameter = (request, response) => {
+    createParameter = async (request, response) => {
         console.log(request.body);
         if (!request.body) return response.sendStatus(400);
 
         const { user_id, new_parameter } = request.body;
 
-        pool.query("insert into body_data (user_id_ref, parameter_name) values ($1, $2) returning id",
+        await pool.query("insert into body_data (user_id_ref, parameter_name) values ($1, $2) returning id",
             [user_id, new_parameter], (error, results) => {
                 if (error) {
                     console.log(error);
@@ -16,7 +16,7 @@ class BodyData {
                 } else {
                     let id = result.rows[0].id;
                     console.log(id);
-                    response.json({ parameter_id: id, message: "Add parameter '" + new_parameter + "'" });
+                    response.status(200).json({ parameter_id: id, message: "Add parameter '" + new_parameter + "'" });
                 }
             });
     }
@@ -34,16 +34,36 @@ class BodyData {
                     console.log("DETAILS ", error.detail);
                     response.status(401).json(error);
                 } else {
-                    response.json({ message: "Add parameter '" + new_body_data + "'" });
+                    response.status(200).json({ message: "Add parameter '" + new_body_data + "'" });
+                }
+            });
+    }
+
+    getParametersList = async (request, response) => {
+        console.log(request.session.user);
+        console.log(request.query.user_id);
+        if (!request.query.user_id) return response.sendStatus(400);
+
+        const user_id = request.query.user_id;
+
+        await pool.query("select * from parameter_data where user_id_ref = $1",
+            [user_id], (error, results) => {
+                if (error) {
+                    console.log(error);
+                    console.log("DETAILS ", error.detail);
+                    response.status(401).json(error);
+                } else {
+                    response.status(200).json(results.rows);
                 }
             });
     }
 
     getBodyData = async (request, response) => {
-        console.log(request.body);
-        if (!request.body) return response.sendStatus(400);
+        console.log(request.session.user);
+        console.log(request.query.parameter_id);
+        if (!request.query.parameter_id) return response.sendStatus(400);
 
-        const { parameter_id } = request.body;
+        const parameter_id = request.query.parameter_id;
 
         await pool.query("select * from parameter_data where body_data_ref = $1",
             [parameter_id], (error, results) => {
@@ -52,7 +72,7 @@ class BodyData {
                     console.log("DETAILS ", error.detail);
                     response.status(401).json(error);
                 } else {
-                    response.json(results.rows);
+                    response.status(200).json(results.rows);
                 }
             });
     }

@@ -1,7 +1,6 @@
 const pool = require('./pool.js');
 
 class Users {
-    a = 5;
     getUsers = (request, response) => {
         //response.sendFile(__dirname + '/login/index.html');
         /*pool.query('SELECT * FROM users', (error, results) => {
@@ -30,7 +29,7 @@ class Users {
                     pool.query('SELECT user_login from users where email = $1', [user_email], (error, results) => {
                         //console.log(results);
                         if (!error)
-                            response.json({ message: "You are registered with a login '" + results.rows[0].user_login + "'" });
+                            response.status(200).json({ message: "You are registered with a login '" + results.rows[0].user_login + "'" });
                     });
                 }
             });
@@ -49,13 +48,21 @@ class Users {
                     console.log("DETAILS ", error.detail);
                     response.status(401).json(error);
                 } else {
-                    if (results.rows.length)
-                        response.json({ login: results.rows[0].login, message: "You are authorized with a login '" + results.rows[0].login + "'" });
+                    if (results.rows.length) {
+                        request.session.user = results.rows[0].login;
+                        console.log(request.session.user);
+                        response.status(200).json({ login: results.rows[0].login, message: "You are authorized with a login '" + results.rows[0].login + "'" });
+                    }
                     else
                         response.status(401).json({ name: 'error', detail: 'Invalid login or password entered' });
                 }
             });
     };
+
+    logoutUser = (req, res) => {
+        req.session.destroy();
+        res.redirect('/');
+    }
 }
 
 
