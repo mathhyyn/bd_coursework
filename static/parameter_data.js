@@ -1,3 +1,6 @@
+// import Chart from '../node_modules/chart.js';
+// import 'chartjs-adapter-date-fns';
+
 let message = document.getElementById("error_placeholder");
 
 document.getElementById('add_body_data_button').onclick = () => {
@@ -24,4 +27,50 @@ document.getElementById('add_body_data_button').onclick = () => {
         .catch(error => {
             console.log('err: ', error);
         })
+}
+
+let canvas = document.getElementById('chart');
+
+document.getElementById('show_chart').onclick = () => {
+    let data = [];
+    fetch('http://localhost:3000/body_data_cashe').then(response => response.json()).then(res => {
+        // console.log(data);
+        canvas.style.display = 'block';
+        for (let d of res.data_list.reverse()) {
+            data.push({x: d.created_at1, y: d.value1});
+        }
+        data.push({x: "2023-09-01", y: 10});
+        let chart = new Chart(canvas, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: res.parameter_name,
+                    data: data,
+                    fill: 'start',
+                    borderColor: 'rgb(145, 161, 140)',
+                    borderWidth: 2,
+                    radius: 5,
+                    hoverRadius: 7,
+                    hoverBorderWidth: 2
+                }],
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'week'
+                        },
+                        offset: true
+                    },
+                    y: {
+                        min: 0,
+                        offset: true
+                    }
+                }
+            }
+        });
+    }).catch(error => {
+        console.log('err: ', error);
+    });
 }

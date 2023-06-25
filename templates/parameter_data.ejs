@@ -6,6 +6,10 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="bodydata.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -22,6 +26,11 @@
     <input id="body_data_input" type="number" value="0"/><br>
     <div id="error_placeholder"></div>
     <button id="add_body_data_button">add</button>
+    <br>
+    <button id="show_chart">show chart</button>
+    <br>
+    <canvas id="chart" width="800" height="400"></canvas>
+
 
     <script src="parameter_data.js"></script>
 </body>

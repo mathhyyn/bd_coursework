@@ -94,10 +94,18 @@ class BodyData {
                 } else {
                     await pool.query("select parameter_name from body_data where id = $1", [parameter_id], (e, r) => {
                         // console.log(results.rows)
+                        request.session.parameter_name = r.rows[0].parameter_name;
+                        request.session.data = results.rows;
                         response.render('parameter_data', {parameter_name: r.rows[0].parameter_name, data_list: results.rows});
                     });
                 }
             });
+    }
+
+    getCasheBodyData = (request, response) => {
+        if (!request.session.user) return response.redirect('/');
+        if (!request.session.parameter) return response.redirect('/body_data'); 
+        response.json({data_list: request.session.data, parameter_name: request.session.parameter_name});
     }
 }
 

@@ -1,16 +1,7 @@
 const express = require('express');
 const session = require('express-session');
-const path = require('path');
-const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
-
-const cors = require('cors');
-app.use(cors());
-
-const urlencodedParser = bodyParser.urlencoded({
-    extended: false,
-});
 
 app.use(express.json());
 
@@ -52,8 +43,6 @@ function loadPage(str) {
     });
 }
 
-const pool = require('./db/pool.js');
-
 function loadPrivatePage(str) {
     app.get('/' + str, async (req, res) => {
         console.log('for', req.session.user);
@@ -69,8 +58,6 @@ function loadPrivatePage(str) {
 app.get('/uprofile', db_users.loadProfilePage);
 
 
-// app.post('/redirect', async (req, res) => { console.log(req.body); res.redirect(req.body.page); });
-
 app.post('/user_sign_up', db_users.createUser);
 app.post('/user_sign_in', db_users.authUser);
 app.get('/logout', db_users.logoutUser);
@@ -82,3 +69,4 @@ app.post('/parameter_add', db_bodydata.createParameter);
 app.post('/body_data_add', db_bodydata.addBodyData);
 app.get('/body_data_get', db_bodydata.getBodyData);
 app.get('/body_data', db_bodydata.getParametersList);
+app.get('/body_data_cashe', db_bodydata.getCasheBodyData);
