@@ -5,10 +5,16 @@
     <title>Показатели тела</title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="bodydata.css">
 </head>
 
 <body>
     <h2>parameters</h2>
+    <% paramenters.forEach(function(row) { %>
+        <div class="parameter" onclick= "getParameterPage(<%= row.id %>)"><%= row.parameter_name %> <br>
+            <%= new Date(row.updated_at).toLocaleString() %> 
+        </div>
+    <% }); %>
     <label>parameter name</label>
     <input id="parameter_input" type="text" value="abs"/><br>
     <div id="error_placeholder"></div>

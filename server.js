@@ -47,28 +47,33 @@ let db_users = new Users();
 
 function loadPage(str) {
     app.get('/' + str, (req, res) => {
-        console.log("aaa", str);
+        console.log("loadPage :", '/' + str);
         res.render(str);
     });
 }
 
-function loadPrivatePage(str) {
-    app.get('/' + str, (req, res) => {
-        console.log(req.session.user);
-        console.log("aaa", str);
-        if (req.session.user) { res.render(str); } else { res.redirect('/'); }
+const pool = require('./db/pool.js');
 
+function loadPrivatePage(str) {
+    app.get('/' + str, async (req, res) => {
+        console.log('for', req.session.user);
+        console.log("loadPage :", '/' + str);
+        if (req.session.user) {
+            res.render(str);
+        } else { res.redirect('/'); }
     });
 }
 
 ['', 'sign_in', 'sign_up'].forEach(loadPage);
-['uprofile', 'body_data'].forEach(loadPrivatePage);
+// ['body_data'].forEach(loadPrivatePage);
+app.get('/uprofile', db_users.loadProfilePage);
+
 
 // app.post('/redirect', async (req, res) => { console.log(req.body); res.redirect(req.body.page); });
 
 app.post('/user_sign_up', db_users.createUser);
 app.post('/user_sign_in', db_users.authUser);
-app.get('logout', db_users.logoutUser);
+app.get('/logout', db_users.logoutUser);
 
 const BodyData = require('./db/bodydata');
 let db_bodydata = new BodyData();
@@ -76,4 +81,4 @@ let db_bodydata = new BodyData();
 app.post('/parameter_add', db_bodydata.createParameter);
 app.post('/body_data_add', db_bodydata.addBodyData);
 app.get('/body_data_get', db_bodydata.getBodyData);
-app.get('/parameters_get', db_bodydata.getParametersList);
+app.get('/body_data', db_bodydata.getParametersList);

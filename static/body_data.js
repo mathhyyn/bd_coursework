@@ -52,8 +52,8 @@ document.getElementById('add_body_data_button').onclick = () => {
         })
 }
 
-document.getElementById('get_all_body_data').onclick = () => {
-    fetch('http://localhost:3000/body_data_get?parameter_id='+8)
+function getParameterPage(id) {
+    fetch('http://localhost:3000/body_data_get?parameter_id='+id)
         .then(response => response.json())
         .then(data => {
             console.log(data);

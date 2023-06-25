@@ -40,20 +40,28 @@ class BodyData {
     }
 
     getParametersList = async (request, response) => {
-        console.log(request.session.user);
-        console.log(request.query.user_id);
-        if (!request.query.user_id) return response.sendStatus(400);
+        // console.log(request.query.user_id);
+        let user_id = request.session.user;
+        console.log('for', user_id);
+        console.log("loadPage :", '/body_data');
+        /*if (!user_id) {
+            response.redirect('/');
+            return;
+        }*/ //ВРЕМЕННО
 
-        const user_id = request.query.user_id;
+        user_id = 'user2';
 
-        await pool.query("select * from parameter_data where user_id_ref = $1",
+        // if (!request.query.user_id) return response.sendStatus(400);
+        // const user_id = request.query.user_id;
+
+        await pool.query("select * from body_data where user_id_ref = $1",
             [user_id], (error, results) => {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
-                    response.status(401).json(error);
+                    response.status(401).render('body_data');
                 } else {
-                    response.status(200).json(results.rows);
+                    response.status(200).render('body_data', {paramenters: results.rows});
                 }
             });
     }

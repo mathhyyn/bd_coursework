@@ -1,0 +1,9 @@
+.parameter {
+    color: rgb(24, 29, 21);
+    margin: 20px;
+    padding: 5px;
+    background: rgb(185, 191, 184);
+    border-radius: 5px;
+    border-style: groove ridge ridge groove;
+    cursor: pointer;
+}

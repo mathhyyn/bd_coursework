@@ -59,6 +59,30 @@ class Users {
             });
     };
 
+    /* async getUserByLogin(login) {
+        let a = 5;
+        await pool.query('select * from users where user_login = $1',
+            [login], (error, results) => {
+                a = 10;
+                console.log(results.rows);
+                if (error) return 0;
+                else return results.rows[0];
+            });
+        console.log('wait', a);
+    }; */
+
+    loadProfilePage = async (req, res) => {
+        console.log('for', req.session.user);
+        console.log("loadPage :", '/uprofile');
+        if (req.session.user) {
+            await pool.query('select * from users where user_login = $1',
+                [req.session.user], (error, results) => {
+                    if (error) res.render('uprofile');
+                    else res.render('uprofile', { name: results.rows[0].user_name });
+                });
+        } else { res.redirect('/'); }
+    }
+
     logoutUser = (req, res) => {
         req.session.destroy();
         res.redirect('/');
