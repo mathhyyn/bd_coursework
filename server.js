@@ -58,15 +58,22 @@ function loadPrivatePage(str) {
 app.get('/uprofile', db_users.loadProfilePage);
 
 
-app.post('/user_sign_up', db_users.createUser);
-app.post('/user_sign_in', db_users.authUser);
+app.post('/sign_up', db_users.createUser);
+app.post('/sign_in', db_users.authUser);
 app.get('/logout', db_users.logoutUser);
 
-const BodyData = require('./db/bodydata');
-let db_bodydata = new BodyData();
+const Parameters = require('./db/parameters');
+let db_params = new Parameters();
+app.get('/parameters', db_params.getParametersList);
+app.post('/parameters', db_params.createParameter);
 
-app.post('/parameter_add', db_bodydata.createParameter);
-app.post('/body_data_add', db_bodydata.addBodyData);
-app.get('/body_data_get', db_bodydata.getBodyData);
-app.get('/body_data', db_bodydata.getParametersList);
+const BodyData = require('./db/body_data');
+let db_bodydata = new BodyData();
+app.get('/body_data', db_bodydata.getBodyData);
+app.post('/body_data', db_bodydata.addBodyData);
 app.get('/body_data_cashe', db_bodydata.getCasheBodyData);
+
+const Training = require('./db/training');
+let db_training = new Training();
+app.get('/training', db_training.getTrainingList);
+app.post('/training_add', db_training.createTraining);

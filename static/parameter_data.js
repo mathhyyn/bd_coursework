@@ -4,7 +4,7 @@
 let message = document.getElementById("error_placeholder");
 
 document.getElementById('add_body_data_button').onclick = () => {
-    fetch('http://localhost:3000/body_data_add', {
+    fetch('http://localhost:3000/body_data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,6 @@ document.getElementById('show_chart').onclick = () => {
         for (let d of res.data_list.reverse()) {
             data.push({x: d.created_at1, y: d.value1});
         }
-        data.push({x: "2023-09-01", y: 10});
         let chart = new Chart(canvas, {
             type: 'line',
             data: {

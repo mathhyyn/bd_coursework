@@ -1,7 +1,7 @@
 let message = document.getElementById("error_placeholder");
 
 document.getElementById('add_parameter_button').onclick = () => {
-    fetch('http://localhost:3000/parameter_add', {
+    fetch('http://localhost:3000/parameters', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -6,7 +6,7 @@ document.getElementById('signup_button').onclick = () => {
         message.style.color = 'red';
         message.textContent = "Passwords don't match";
     } else {
-        fetch('http://localhost:3000/user_sign_up', {
+        fetch('http://localhost:3000/sign_up', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

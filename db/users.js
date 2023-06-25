@@ -28,8 +28,11 @@ class Users {
                 } else {
                     pool.query('SELECT user_login from users where email = $1', [user_email], (error, results) => {
                         //console.log(results);
-                        if (!error)
+                        if (!error) {
+                            request.session.user = results.rows[0].user_login;
                             response.status(200).json({ message: "You are registered with a login '" + results.rows[0].user_login + "'" });
+                        }
+                            
                     });
                 }
             });
@@ -72,8 +75,6 @@ class Users {
     }; */
 
     loadProfilePage = async (req, res) => {
-        console.log('for', req.session.user);
-        console.log("loadPage :", '/uprofile');
         if (req.session.user) {
             await pool.query('select * from users where user_login = $1',
                 [req.session.user], (error, results) => {

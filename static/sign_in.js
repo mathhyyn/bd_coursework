@@ -16,7 +16,7 @@ function redirect(str) {
 }
 
 document.getElementById('signin_button').onclick = () => {
-    fetch('http://localhost:3000/user_sign_in', {
+    fetch('http://localhost:3000/sign_in', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
