@@ -1,9 +1,34 @@
+html {
+    height: auto;
+    overflow: auto;
+}
+
+.data,
+.parameter:active,
+.parameter:hover,
 .parameter {
+    border-color: white;
     color: rgb(24, 29, 21);
-    margin: 20px;
+    margin: 5px;
     padding: 5px;
     background: rgb(185, 191, 184);
+}
+
+.parameter:active,
+.parameter:hover,
+.parameter {
     border-radius: 5px;
     border-style: groove ridge ridge groove;
     cursor: pointer;
+}
+
+.data {
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.time {
+    color: rgb(73, 75, 71);
+    font-size: small;
 }

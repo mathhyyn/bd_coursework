@@ -5,6 +5,8 @@ create table parameter_data (
   created_at timestamp default now()
 );
 
+
+
 drop table parameter_data;
 
 create table body_data (
@@ -13,6 +15,10 @@ create table body_data (
 	parameter_name varchar(255),
 	updated_at timestamp default now()
 );
+
+alter table body_data
+alter column updated_at type timestamp with time zone,
+alter column updated_at set default now();
 
 drop table body_data;
 
@@ -44,4 +50,28 @@ insert into parameter_data (body_data_ref, value)
 	values (1, 2),
 	values (1, 2)
 
+select * from body_data where user_id_ref = 'user1';
+
+select * from parameter_data where body_data_ref = 8 order by created_at desc;
+
+
+create or replace function get_body_data_list(login_ varchar(255), id_ integer)
+returns table(
+  id1 integer,
+  body_data_ref1 integer,
+  value1 varchar(255),
+  created_at1 timestamp with time zone
+  ) as $$
+begin
+	if not exists (select * from body_data where user_id_ref = login_ and id = id_) then
+		raise exception 'access denied';
+	else
+  		return query select * from parameter_data where body_data_ref = id_ order by created_at desc;
+  	end if;
+end;
+$$ language plpgsql;
+
+select * from get_body_data_list('user2', 8)
+
+drop function get_body_data_list(character varying,integer) 
 	

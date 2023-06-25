@@ -7,7 +7,6 @@ document.getElementById('add_parameter_button').onclick = () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user_id: 'user1', // ХАРДКОД исправить
             new_parameter: document.getElementById("parameter_input").value
         })
     })
@@ -19,6 +18,7 @@ document.getElementById('add_parameter_button').onclick = () => {
             } else {
                 message.style.color = 'green';
                 message.textContent = data.message;
+                location.reload();
             }
         })
         .catch(error => {
@@ -26,33 +26,7 @@ document.getElementById('add_parameter_button').onclick = () => {
         })
 }
 
-document.getElementById('add_body_data_button').onclick = () => {
-    fetch('http://localhost:3000/body_data_add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            parameter_id: 8, // ХАРДКОД исправить
-            new_body_data: document.getElementById("body_data_input").value
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.name == 'error') {
-                message.style.color = 'red';
-                message.textContent = data.detail;
-            } else {
-                message.style.color = 'green';
-                message.textContent = data.message;
-            }
-        })
-        .catch(error => {
-            console.log('err: ', error);
-        })
-}
-
-function getParameterPage(id) {
+/*function getParameterPage(id) {
     fetch('http://localhost:3000/body_data_get?parameter_id='+id)
         .then(response => response.json())
         .then(data => {
@@ -61,11 +35,10 @@ function getParameterPage(id) {
                 message.style.color = 'red';
                 message.textContent = data.detail;
             } else {
-                message.style.color = 'green';
-                message.textContent = 'ok';
+                window.location.href = 'body_data';
             }
         })
         .catch(error => {
             console.log('err: ', error);
         })
-}
+}*/

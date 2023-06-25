@@ -11,19 +11,16 @@
 <body>
     <h2>parameters</h2>
     <% paramenters.forEach(function(row) { %>
-        <div class="parameter" onclick= "getParameterPage(<%= row.id %>)"><%= row.parameter_name %> <br>
-            <%= new Date(row.updated_at).toLocaleString() %> 
-        </div>
+        <a class="parameter" href = "body_data_get?parameter_id= <%= row.id %>"> <!--onclick= "getParameterPage(<%= row.id %>)"-->
+            <%= row.parameter_name %> <br>
+            <div class="time"><%= new Date(row.updated_at).toLocaleString() %> </div>
+        </a>
     <% }); %>
+    <h2>add new parameter</h2>
     <label>parameter name</label>
     <input id="parameter_input" type="text" value="abs"/><br>
     <div id="error_placeholder"></div>
     <button id="add_parameter_button">add</button>
-
-    <label>data</label>
-    <input id="body_data_input" type="number" value="0"/><br>
-    <button id="add_body_data_button">add</button>
-    <button id="get_all_body_data">get</button>
 
     <script src="body_data.js"></script>
 </body>
