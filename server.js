@@ -55,7 +55,7 @@ function loadPrivatePage(str) {
 
 ['', 'sign_in', 'sign_up'].forEach(loadPage);
 app.get('/uprofile', db_users.loadProfilePage);
-app.get('/profile_edit', db_users.loadEditePage);
+app.get('/profile_edit', db_users.loadEditPage);
 app.put('/uprofile', db_users.editUser);
 app.get('/delete_user', db_users.deleteUser);
 
@@ -73,6 +73,9 @@ let db_bodydata = new BodyData();
 app.get('/body_data', db_bodydata.getBodyData);
 app.post('/body_data', db_bodydata.addBodyData);
 app.get('/body_data_cashe', db_bodydata.getCasheBodyData);
+app.get('/bodydata_edit', db_bodydata.loadEditPage);
+app.get('/bodydata_delete', db_bodydata.deleteBodyData);
+app.put('/body_data', db_bodydata.editBodyData);
 
 const Training = require('./db/training');
 let db_training = new Training();

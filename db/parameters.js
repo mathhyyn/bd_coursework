@@ -24,7 +24,7 @@ class Parameters {
         if (!user_id) return response.redirect('/');
 
         console.log(request.body);
-        if (!request.body) return response.sendStatus(404);
+        if (!request.body) return response.sendStatus(400);
 
         const { new_parameter } = request.body;
 

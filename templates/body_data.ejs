@@ -13,7 +13,7 @@
     <a class="back mini" href="/uprofile">back</a>
     <h2>parameters</h2>
     <% parameters.forEach(function(row) { %>
-        <a class="parameter" href = "body_data?parameter_id= <%= row.id %>"> <!--onclick= "getParameterPage(<%= row.id %>)"-->
+        <a class="parameter" href = "body_data?parameter_id=<%= row.id %>"> <!--onclick= "getParameterPage(<%= row.id %>)"-->
             <%= row.parameter_name %> <br>
             <div class="time"><%= new Date(row.updated_at).toLocaleString() %> </div>
         </a>

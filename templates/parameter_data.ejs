@@ -3,11 +3,11 @@
 
 <head>
     <title>Показатели тела</title>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="bodydata.css">
     <link type="image/png" rel="icon" href="images/exercise.png">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 
@@ -17,14 +17,17 @@
     <a class="back mini" href="/parameters">back</a>
     <h2><%= parameter_name %></h2>
     <% data_list.forEach(function(row) { %>
+    <div class="data_box">
         <div class="data">
             <%= new Date(row.created_at1).toLocaleDateString() %> <div><%= row.value1 %></div>
-            
         </div>
-    <% }); %>
+        <a class="image_link" href="/bodydata_edit?bodydata_id=<%= row.id1 %>"><img src="images/edit.svg" /></a>
+        <a class="image_link" href="/bodydata_delete?bodydata_id=<%= row.id1 %>"><img src="images/delete.svg" /> </a>
+    </div> 
+    <% }); %> 
 
     <h2>add new data</h2>
-    <input id="body_data_input" type="number" value="0"/><br>
+    <input id="body_data_input" type="number" value="0" /><br>
     <div id="error_placeholder"></div>
     <button id="add_body_data_button">add</button>
     <br>

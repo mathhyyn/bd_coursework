@@ -93,7 +93,7 @@ class Users {
         } else { res.redirect('/'); }
     }
 
-    loadEditePage = async (req, res) => {
+    loadEditPage = async (req, res) => {
         if (req.session.user) {
             await pool.query('select * from users where user_login = $1',
                 [req.session.user], (error, results) => {
