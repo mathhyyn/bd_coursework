@@ -20,6 +20,15 @@ alter table body_data
 alter column updated_at type timestamp with time zone,
 alter column updated_at set default now();
 
+alter table body_data drop constraint body_data_user_id_ref_fkey;
+alter table body_data add constraint body_data_user_id_ref_fkey 
+foreign key (user_id_ref) references users(user_login) on delete cascade on update cascade;
+
+alter table public.parameter_data drop constraint parameter_data_body_data_ref_fkey;
+alter table public.parameter_data add constraint parameter_data_body_data_ref_fkey 
+foreign key (body_data_ref) references public.body_data(id) on delete cascade on update cascade;
+
+
 drop table body_data;
 
 create or replace function update_statistic()
@@ -74,4 +83,5 @@ $$ language plpgsql;
 select * from get_body_data_list('user2', 8)
 
 drop function get_body_data_list(character varying,integer) 
+
 	
