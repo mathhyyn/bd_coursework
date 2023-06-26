@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Редактирование профиля</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <a class="back mini" href="/uprofile">back</a>
+    <h2>profile edit</h2>
+    <label>login</label>
+    <input id="login_input" type="text" value='<%= user.user_login %>'' /><br>
+    <label>password</label>
+    <input id="password_input" type="password" value='<%= user.user_password %>'' /><br>
+    <label>repeat password</label>
+    <input id="repeat_password" type="password" value='<%= user.user_password %>'' /><br>
+    <label>name</label>
+    <input id="name_input" type="text" value='<%= user.user_name %>'' /><br>
+    <label>birthday</label>
+    <input id="date_input" type="date" value='<%= user.user_date %>' /><br>
+    <label>email</label>
+    <input id="email_input" type="email" value='<%= user.email %>'' /><br>
+    <label>gender</label>
+    <select id="gender_input" >
+        <option value="male">male</option>
+        <option value="female" <%- user.gender ? 'selected' : '' %> >female</option>
+    </select><br>
+    <div id="error_placeholder"></div>
+    <button id="save_profile_button">save</button>
+    <script src="profile_edit.js"></script>
+</body>
+
+</html>

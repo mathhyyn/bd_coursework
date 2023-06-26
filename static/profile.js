@@ -1,3 +1,7 @@
-/*import * as client from "../client.js" */
+/*document.getElementById('profile_delete_button').onclick = () => {
+    fetch('http://localhost:3000/uprofile', {
+        method: 'DELETE'
+    })
+        .catch(error => { console.log('err: ', error); })
 
-console.log(sessionStorage.getItem('user_id'));
+}*/

@@ -1,19 +1,4 @@
-//import * as client from "../client.js";
-
-//console.log(client.getID());
-
 let message = document.getElementById("error_placeholder");
-
-function redirect(str) {
-    fetch('http://localhost:3000/redirect', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ page: str })
-    })
-        .then((res) => { });
-}
 
 document.getElementById('signin_button').onclick = () => {
     fetch('http://localhost:3000/sign_in', {
@@ -29,16 +14,15 @@ document.getElementById('signin_button').onclick = () => {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             if (data.name == 'error') {
                 message.style.color = 'red';
                 message.textContent = data.detail;
             } else {
-                // client.updateID(5);
-                sessionStorage.setItem('user_id', data.login);
+                // sessionStorage.setItem('user_id', data.login);
                 message.style.color = 'green';
                 message.textContent = data.message;
                 window.location.href = 'uprofile';
-                //redirect('profile');
                 //window.location.href = '../profile/profile.html';
             }
         })

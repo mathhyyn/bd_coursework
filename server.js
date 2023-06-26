@@ -54,9 +54,10 @@ function loadPrivatePage(str) {
 }
 
 ['', 'sign_in', 'sign_up'].forEach(loadPage);
-// ['body_data'].forEach(loadPrivatePage);
 app.get('/uprofile', db_users.loadProfilePage);
-
+app.get('/profile_edit', db_users.loadEditePage);
+app.put('/uprofile', db_users.editUser);
+app.get('/delete_user', db_users.deleteUser);
 
 app.post('/sign_up', db_users.createUser);
 app.post('/sign_in', db_users.authUser);
