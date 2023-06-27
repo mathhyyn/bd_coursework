@@ -30,11 +30,12 @@ document.getElementById('add_body_data_button').onclick = () => {
 }
 
 let canvas = document.getElementById('chart');
+let chart_type_select = document.getElementById('chart_type');
 
 let chart = new Chart(canvas, {});
 
 document.getElementById('show_chart').onclick = () => {
-    let chart_type = document.getElementById('chart_type').value;
+    let chart_type = chart_type_select.value;
     let data = [];
     fetch('http://localhost:3000/body_data_cashe').then(response => response.json()).then(res => {
         // console.log(data);

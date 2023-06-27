@@ -28,20 +28,22 @@ class Workout {
         let user_id = request.session.user;
         if (!user_id) return response.redirect('/');
 
-        await pool.query("select * from workout \
+        let order = request.query.order ? request.query.order : 'desc';
+        let by = request.query.by ? request.query.by : 'created_at';
+
+        await pool.query(`select * from workout \
             where id not in (select workout.id \
             from workout \
             join user_workouts on workout.id = user_workouts.workout_id \
             where user_workouts.user_id = $1 ) \
-            order by created_at desc",
+            order by ${by} ${order}`,
             [user_id], (error, results) => {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
                     response.status(404).render('workout_search', { workouts: [] });
                 } else {
-
-                    response.status(200).render('workout_search', { user_id: user_id, workouts: results.rows })
+                    response.status(200).render('workout_search', { user_id: user_id, workouts: results.rows, order: order, by: by})
                 }
             });
 

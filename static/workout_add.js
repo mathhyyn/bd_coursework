@@ -26,3 +26,13 @@ document.getElementById('add_complex_button').onclick = () => {
             console.log('err: ', error);
         })
 }
+
+let order = document.getElementById('order');
+let by = document.getElementById('by');
+
+function update_list() {
+    location.href = `workout_search?order=${order.value}&by=${by.value}`;
+}
+
+document.getElementById('order').onchange = update_list;
+document.getElementById('by').onchange = update_list;
