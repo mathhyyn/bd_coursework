@@ -77,7 +77,7 @@ app.get('/bodydata_edit', db_bodydata.loadEditPage);
 app.get('/bodydata_delete', db_bodydata.deleteBodyData);
 app.put('/body_data', db_bodydata.editBodyData);
 
-const Training = require('./db/training');
-let db_training = new Training();
-app.get('/training', db_training.getTrainingList);
-app.post('/training_add', db_training.createTraining);
+const Workout = require('./db/workout');
+let db_workout = new Workout();
+app.get('/workout', db_workout.getWorkoutList);
+app.post('/workout_add', db_workout.createWorkout);
