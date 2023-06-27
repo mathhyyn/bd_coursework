@@ -87,7 +87,7 @@ class Users {
         if (req.session.user) {
             await pool.query('select * from users where user_login = $1',
                 [req.session.user], (error, results) => {
-                    if (error) res.render('profile');
+                    if (error) res.render('profile', {name: ''});
                     else res.render('profile', { name: results.rows[0].user_name });
                 });
         } else { res.redirect('/'); }
@@ -97,7 +97,7 @@ class Users {
         if (req.session.user) {
             await pool.query('select * from users where user_login = $1',
                 [req.session.user], (error, results) => {
-                    if (error) res.render('profile_edit');
+                    if (error) res.render('profile_edit', {user: {}});
                     else {
                         results.rows[0].user_date = getDateStr(results.rows[0].user_date);
                         res.render('profile_edit', { user: results.rows[0] });

@@ -20,6 +20,7 @@ html {
     border-radius: 5px;
     border-style: groove ridge ridge groove;
     cursor: pointer;
+    font-family: system-ui;
 }
 
 .data {

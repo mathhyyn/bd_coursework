@@ -19,9 +19,9 @@ document.getElementById('add_body_data_button').onclick = () => {
                 message.style.color = 'red';
                 message.textContent = data.detail;
             } else {
-                location.reload();
                 message.style.color = 'green';
                 message.textContent = data.message;
+                location.reload();
             }
         })
         .catch(error => {

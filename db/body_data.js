@@ -59,7 +59,7 @@ class BodyData {
                     response.status(404).json(error.detail);
                 } else {
                     await pool.query("select parameter_name from body_data where id = $1", [parameter_id], (e, r) => {
-                        // console.log(results.rows)
+                        // console.log(results.rows) // if (e) ..
                         request.session.parameter_name = r.rows[0].parameter_name;
                         request.session.data = results.rows;
                         response.render('parameter_data', { parameter_name: r.rows[0].parameter_name, data_list: results.rows });

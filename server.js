@@ -79,5 +79,8 @@ app.put('/body_data', db_bodydata.editBodyData);
 
 const Workout = require('./db/workout');
 let db_workout = new Workout();
-app.get('/workout', db_workout.getWorkoutList);
-app.post('/workout_add', db_workout.createWorkout);
+app.get('/workout', db_workout.getUserWorkouts);
+app.get('/workout_add', db_workout.addWorkout);
+app.get('/workout_search', db_workout.getAllWorkouts);
+app.post('/workout_search', db_workout.createWorkout)
+

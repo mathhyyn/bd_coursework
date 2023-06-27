@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Тренировки</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="bodydata.css">
+    <link type="image/png" rel="icon" href="images/exercise.png">
+</head>
+
+<body>
+    <a class="back mini" href="/workout">back</a>
+    <h2>all workouts</h2>
+
+        <div>
+    <% workouts.forEach(function(row) { %>
+    <div class="data_box">
+        <div class="parameter" style="width: 200px;">
+            <%= row.name %>
+            <div class="time"><%= row.owner_id %> </div>
+        </div>
+        
+        <a class="image_link" href="/workout_add?id=<%= row.id  %> "><img src="images/add.svg" /></a>
+
+        <% if (row.owner_id == user_id) { %>  
+        <a class="image_link" href="/workout_edit?id=<%= row.id %>"><img src="images/edit.svg" /></a>
+        <a class="image_link" href="/workout_delete?id=<%= row.id %>"><img src="images/delete.svg" /> </a>
+        <% } %>
+        
+    </div>
+    <% }); %>
+    </div>
+
+    <h2>add new complex</h2>
+    <label>complex name</label>
+    <input id="complex_input" type="text" /><br>
+    <div id="error_placeholder"></div>
+    <button id="add_complex_button">add</button>
+
+    <script src="workout.js"></script>
+</body>
+
+</html>

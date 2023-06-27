@@ -12,7 +12,7 @@ class Parameters {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
-                    response.status(404).render('body_data');
+                    response.status(404).render('body_data', {parameters: []});
                 } else {
                     response.status(200).render('body_data', { parameters: results.rows });
                 }
