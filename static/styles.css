@@ -46,10 +46,11 @@ a:hover {
   font-size: medium;
 }
 
-.right_options{
+.right_options {
   position: fixed;
   right: 30px;
   top: 50px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }

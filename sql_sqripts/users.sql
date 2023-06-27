@@ -48,4 +48,5 @@ DROP FUNCTION public.get_user_login(varchar, varchar, varchar);
 
 select * from get_user_login('', 'anna@gmail.com', '1anna');
 
+update users set user_id = 1 where user_id = 55;
 

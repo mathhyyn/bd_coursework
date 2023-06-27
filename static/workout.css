@@ -1,0 +1,21 @@
+.info_box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.workout_info {
+    padding: 20px;
+    border-radius: 5%;
+    border: rgb(145, 161, 140);
+    border-style: double;
+    overflow: auto;
+    width: 400px;
+    height: 500px;
+    background: rgb(242, 246, 241);
+}

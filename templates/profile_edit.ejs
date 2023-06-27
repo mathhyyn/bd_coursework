@@ -3,7 +3,7 @@
 
 <head>
     <title>Редактирование профиля</title>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link type="image/png" rel="icon" href="images/exercise.png">
 </head>
@@ -24,9 +24,9 @@
     <label>email</label>
     <input id="email_input" type="email" value='<%= user.email %>' /><br>
     <label>gender</label>
-    <select id="gender_input" >
+    <select id="gender_input">
         <option value="male">male</option>
-        <option value="female" <%- user.gender ? 'selected' : '' %> >female</option>
+        <option value="female" <%- user.gender ? 'selected' : '' %>>female</option>
     </select><br>
     <div id="error_placeholder"></div>
     <button id="save_profile_button">save</button>

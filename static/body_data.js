@@ -19,7 +19,7 @@ document.getElementById('add_parameter_button').onclick = () => {
                 message.style.color = 'green';
                 message.textContent = data.message;
                 location.reload();
-                
+
             }
         })
         .catch(error => {

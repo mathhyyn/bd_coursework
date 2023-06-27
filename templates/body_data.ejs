@@ -3,7 +3,7 @@
 
 <head>
     <title>Показатели тела</title>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="bodydata.css">
     <link type="image/png" rel="icon" href="images/exercise.png">
@@ -13,14 +13,15 @@
     <a class="back mini" href="/uprofile">back</a>
     <h2>parameters</h2>
     <% parameters.forEach(function(row) { %>
-        <a class="parameter" href = "body_data?parameter_id=<%= row.id %>"> <!--onclick= "getParameterPage(<%= row.id %>)"-->
-            <%= row.parameter_name %> <br>
-            <div class="time"><%= new Date(row.updated_at).toLocaleString() %> </div>
-        </a>
+    <a class="parameter" href="body_data?parameter_id=<%= row.id %>">
+        <!--onclick= "getParameterPage(<%= row.id %>)"-->
+        <%= row.parameter_name %> <br>
+        <div class="time"><%= new Date(row.updated_at).toLocaleString() %> </div>
+    </a>
     <% }); %>
     <h2>add new parameter</h2>
     <label>parameter name</label>
-    <input id="parameter_input" type="text"/><br>
+    <input id="parameter_input" type="text" /><br>
     <div id="error_placeholder"></div>
     <button id="add_parameter_button">add</button>
 

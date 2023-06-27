@@ -9,17 +9,16 @@ class Workout {
         console.log(request.body);
         if (!request.body) return response.sendStatus(400);
 
-        const { name } = request.body;
+        const { name, info } = request.body;
 
-        await pool.query("insert into workout (name, owner_id) values ($1, $2) returning id",
-            [name, user_id], async (error, results) => {
+        await pool.query("insert into workout (name, owner_id, info) values ($1, $2, $3) returning id",
+            [name, user_id, { description: info }], async (error, results) => {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
                     response.status(400).json(error);
                 } else {
                     let id = results.rows[0].id;
-                    console.log(id);
                     response.status(200).json({ workout_id: id, message: "Workout '" + name + "' is created" });
                 }
             });
@@ -67,6 +66,48 @@ class Workout {
                 } else {
                     response.status(200).redirect('/workout_search');
 
+                }
+            });
+    }
+
+    deleteWorkout = async (request, response) => {
+        let user_id = request.session.user;
+        if (!user_id) return response.redirect('/');
+
+        let workout_id = request.query.id;
+        if (!workout_id) {
+            return response.sendStatus(400);
+        }
+
+        await pool.query("delete from user_workouts where user_id = $1 and workout_id = $2",
+            [user_id, workout_id], (error, results) => {
+                if (error) {
+                    console.log(error);
+                    console.log("DETAILS ", error.detail);
+                    response.status(400).json(error);
+                } else {
+                    response.status(200).redirect('/workout');
+                }
+            });
+    }
+
+    removeWorkout = async (request, response) => {
+        let user_id = request.session.user;
+        if (!user_id) return response.redirect('/');
+
+        let workout_id = request.query.id;
+        if (!workout_id) {
+            return response.sendStatus(400);
+        }
+
+        await pool.query("delete from workout where id = $1",
+            [workout_id], (error, results) => {
+                if (error) {
+                    console.log(error);
+                    console.log("DETAILS ", error.detail);
+                    response.status(400).json(error);
+                } else {
+                    response.status(200).redirect('/workout_search');
                 }
             });
     }

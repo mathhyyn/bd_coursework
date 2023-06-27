@@ -81,6 +81,9 @@ const Workout = require('./db/workout');
 let db_workout = new Workout();
 app.get('/workout', db_workout.getUserWorkouts);
 app.get('/workout_add', db_workout.addWorkout);
+app.get('/workout_delete', db_workout.deleteWorkout);
+app.get('/workout_remove', db_workout.removeWorkout);
 app.get('/workout_search', db_workout.getAllWorkouts);
-app.post('/workout_search', db_workout.createWorkout)
+app.post('/workout_search', db_workout.createWorkout);
+
 

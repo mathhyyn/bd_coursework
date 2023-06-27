@@ -6,6 +6,7 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="bodydata.css">
+    <link rel="stylesheet" type="text/css" href="workout.css">
     <link type="image/png" rel="icon" href="images/exercise.png">
 </head>
 
@@ -13,32 +14,44 @@
     <a class="back mini" href="/workout">back</a>
     <h2>all workouts</h2>
 
-        <div>
-    <% workouts.forEach(function(row) { %>
-    <div class="data_box">
-        <div class="parameter" style="width: 200px;">
-            <%= row.name %>
-            <div class="time"><%= row.owner_id %> </div>
-        </div>
-        
-        <a class="image_link" href="/workout_add?id=<%= row.id  %> "><img src="images/add.svg" /></a>
+    <div>
+        <% workouts.forEach(function(row) { %>
+        <div class="data_box">
+            <div class="parameter" style="width: 200px;" onclick="open_workout_info(<%= row.id %>)">
+                <%= row.name %>
+                <div class="time"><%= row.owner_id %> </div>
+            </div>
 
-        <% if (row.owner_id == user_id) { %>  
-        <a class="image_link" href="/workout_edit?id=<%= row.id %>"><img src="images/edit.svg" /></a>
-        <a class="image_link" href="/workout_remove?id=<%= row.id %>"><img src="images/delete.svg" /> </a>
-        <% } %>
-        
-    </div>
-    <% }); %>
+            <a class="image_link" href="/workout_add?id=<%= row.id  %> "><img src="images/add.svg" /></a>
+
+            <% if (row.owner_id == user_id) { %>
+            <a class="image_link" href="/workout_remove?id=<%= row.id %>"><img src="images/delete.svg" /> </a>
+            <% } %>
+
+        </div>
+
+        <div class="info_box" id="block_<%= row.id %>">
+            <div class="workout_info">
+                <img class="right_options" src="images/close.svg" onclick="close_workout_info(<%= row.id %>)" />
+                <h2> <%= row.name %></h2>
+                <div class="time">owner: <%= row.owner_id %></div>
+                <div><%= row.info.description %></div>
+            </div>
+        </div>
+
+        <% }); %>
     </div>
 
     <h2>add new complex</h2>
     <label>complex name</label>
     <input id="complex_input" type="text" /><br>
+    <label>complex info</label>
+    <textarea id="complex_info" rows="10" cols="100"></textarea>
     <div id="error_placeholder"></div>
     <button id="add_complex_button">add</button>
 
     <script src="workout.js"></script>
+    <script src="workout_add.js"></script>
 </body>
 
 </html>

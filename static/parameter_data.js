@@ -37,7 +37,7 @@ document.getElementById('show_chart').onclick = () => {
         // console.log(data);
         canvas.style.display = 'block';
         for (let d of res.data_list.reverse()) {
-            data.push({x: d.created_at1, y: d.value1});
+            data.push({ x: d.created_at1, y: d.value1 });
         }
         let chart = new Chart(canvas, {
             type: 'line',
