@@ -29,41 +29,67 @@ class Workout {
         let user_id = request.session.user;
         if (!user_id) return response.redirect('/');
 
-        await pool.query("select * from workout order by created_at desc",
-            [], (error, results) => {
+        await pool.query("select * from workout \
+            where id not in (select workout.id \
+            from workout \
+            join user_workouts on workout.id = user_workouts.workout_id \
+            where user_workouts.user_id = $1 ) \
+            order by created_at desc",
+            [user_id], (error, results) => {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
-                    response.status(404).render('workout_search', {workouts: []});
+                    response.status(404).render('workout_search', { workouts: [] });
                 } else {
-                    
-                    response.status(200).render('workout_search', { user_id: user_id,  workouts: results.rows })
+
+                    response.status(200).render('workout_search', { user_id: user_id, workouts: results.rows })
                 }
             });
 
-        
+
     }
 
     addWorkout = async (request, response) => {
         let user_id = request.session.user;
         if (!user_id) return response.redirect('/');
 
-        await pool.query("insert into user_workouts (user_id, workout_id) values ($1, $2) returning id",
+        let workout_id = request.query.id;
+        if (!workout_id) {
+            return response.sendStatus(400);
+        }
+
+        await pool.query("insert into user_workouts (user_id, workout_id) values ($1, $2)",
             [user_id, workout_id], (error, results) => {
                 if (error) {
                     console.log(error);
                     console.log("DETAILS ", error.detail);
                     response.status(400).json(error);
                 } else {
-                    response.status(200).json({ workout_id: id, message: "Add workout '" + workout_id + "'" });
+                    response.status(200).redirect('/workout_search');
+
                 }
             });
     }
+
     getUserWorkouts = async (request, response) => {
         let user_id = request.session.user;
         if (!user_id) return response.redirect('/');
 
-        response.status(200).render('workout')
+        await pool.query("select workout.* \
+        from workout \
+        join user_workouts on workout.id = user_workouts.workout_id \
+        where user_workouts.user_id = $1 \
+        order by created_at desc",
+            [user_id], (error, results) => {
+                if (error) {
+                    console.log(error);
+                    console.log("DETAILS ", error.detail);
+                    response.status(404).render('workout', { workouts: [] });
+                } else {
+                    request.session.workouts = results.rows;
+                    response.status(200).render('workout', { workouts: results.rows })
+                }
+            });
     }
 }
 

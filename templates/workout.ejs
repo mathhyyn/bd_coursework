@@ -3,7 +3,7 @@
 
 <head>
     <title>Тренировки</title>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="bodydata.css">
     <link type="image/png" rel="icon" href="images/exercise.png">
@@ -13,7 +13,17 @@
     <a class="back mini" href="/uprofile">back</a>
     <h2>exercise complexes</h2>
 
-    
+    <% workouts.forEach(function(row) { %>
+    <div class="data_box">
+        <div class="parameter" style="width: 200px;">
+            <%= row.name %>
+        </div>
+
+        <a class="image_link" href="/workout_delete?id=<%= row.id  %> "><img src="images/close.svg" /></a>
+
+    </div>
+    <% }); %>
+
     <a href="/workout_search">All workouts</a>
 
     <!--<video width="320" height="240" controls>
