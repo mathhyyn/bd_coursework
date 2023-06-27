@@ -31,7 +31,10 @@ document.getElementById('add_body_data_button').onclick = () => {
 
 let canvas = document.getElementById('chart');
 
+let chart = new Chart(canvas, {});
+
 document.getElementById('show_chart').onclick = () => {
+    let chart_type = document.getElementById('chart_type').value;
     let data = [];
     fetch('http://localhost:3000/body_data_cashe').then(response => response.json()).then(res => {
         // console.log(data);
@@ -39,8 +42,10 @@ document.getElementById('show_chart').onclick = () => {
         for (let d of res.data_list.reverse()) {
             data.push({ x: d.created_at1, y: d.value1 });
         }
-        let chart = new Chart(canvas, {
-            type: 'line',
+        chart.destroy();
+        console.log(chart_type);
+        chart = new Chart(canvas, {
+            type: chart_type,
             data: {
                 datasets: [{
                     label: res.parameter_name,
