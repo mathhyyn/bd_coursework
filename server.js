@@ -1,10 +1,14 @@
 const express = require('express');
-const session = require('express-session');
 const app = express();
 const port = 3000;
 
+app.listen(port, () => {
+    console.log("listen server " + port);
+});
+
 app.use(express.json());
 
+const session = require('express-session');
 app.use(
     session({
         secret: 'you secret key',
@@ -25,10 +29,6 @@ app.set('views', './templates');
     response.json({ info: 'Node.js, Express, and Postgres API' })
 });*/
 
-app.listen(port, () => {
-    console.log("listen server " + port);
-});
-
 const Users = require('./db/users');
 let db_users = new Users();
 
@@ -42,6 +42,7 @@ function loadPage(str) {
         res.render(str);
     });
 }
+
 
 function loadPrivatePage(str) {
     app.get('/' + str, async (req, res) => {
@@ -76,6 +77,7 @@ app.get('/body_data_cashe', db_bodydata.getCasheBodyData);
 app.get('/bodydata_edit', db_bodydata.loadEditPage);
 app.get('/bodydata_delete', db_bodydata.deleteBodyData);
 app.put('/body_data', db_bodydata.editBodyData);
+
 
 const Workout = require('./db/workout');
 let db_workout = new Workout();
