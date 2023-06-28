@@ -43,7 +43,7 @@ class Workout {
                     console.log("DETAILS ", error.detail);
                     response.status(404).render('workout_search', { workouts: [] });
                 } else {
-                    response.status(200).render('workout_search', { user_id: user_id, workouts: results.rows, order: order, by: by})
+                    response.status(200).render('workout_search', { user_id: user_id, workouts: results.rows, order: order, by: by })
                 }
             });
 

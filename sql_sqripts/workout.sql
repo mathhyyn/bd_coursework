@@ -23,3 +23,10 @@ where user_workouts.user_id = 'user2';
 update workout
 set info = '{"description":""}' where id <> 13;
 
+select * from workout
+            where id not in (select workout.id 
+            from workout 
+            join user_workouts on workout.id = user_workouts.workout_id 
+            where user_workouts.user_id = 'user2') 
+            order by name asc;
+
