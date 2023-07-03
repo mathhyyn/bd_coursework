@@ -42,7 +42,7 @@ end;
 $$ language plpgsql;
 
 create or replace trigger update_statistic
-after insert on parameter_data
+after insert or update on parameter_data
 for each row
 execute function update_statistic();
 

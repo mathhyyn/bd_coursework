@@ -49,6 +49,7 @@ class Workout {
 
 
     }
+    
 
     addWorkout = async (request, response) => {
         let user_id = request.session.user;
